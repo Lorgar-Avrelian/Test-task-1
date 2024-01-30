@@ -1,4 +1,4 @@
-package com.gridnine.testing.flight_builder;
+package com.gridnine.testing.test_factory;
 
 import com.gridnine.testing.model.Segment;
 import com.gridnine.testing.model.Flight;
