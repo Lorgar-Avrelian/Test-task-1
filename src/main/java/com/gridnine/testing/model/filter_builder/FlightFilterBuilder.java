@@ -1,12 +1,16 @@
 package com.gridnine.testing.model.filter_builder;
 
 import com.gridnine.testing.model.Flight;
+import com.gridnine.testing.model.Flights;
 import com.gridnine.testing.model.Segment;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Filter class for entity of {@link Flights}
+ */
 public class FlightFilterBuilder {
     List<Flight> flights;
 
@@ -14,6 +18,11 @@ public class FlightFilterBuilder {
         this.flights = flights;
     }
 
+    /**
+     * A method for getting {@link List} with {@link Flight} that departs in the past
+     *
+     * @return List<Flight>
+     */
     public FlightFilterBuilder departureBeforeNow() {
         LocalDateTime timeNow = LocalDateTime.now();
         this.flights = flights.stream()
@@ -34,6 +43,11 @@ public class FlightFilterBuilder {
         return this;
     }
 
+    /**
+     * A method for getting {@link List} with {@link Flight} that departs before it arrives
+     *
+     * @return List<Flight>
+     */
     public FlightFilterBuilder arrivalDateBeforeDepartureDate() {
         this.flights = flights.stream()
                               .parallel()
@@ -53,6 +67,11 @@ public class FlightFilterBuilder {
         return this;
     }
 
+    /**
+     * A method for getting {@link List} with {@link Flight} with more than two hours ground time
+     *
+     * @return List<Flight>
+     */
     public FlightFilterBuilder parkingMoreThen2Hours() {
         this.flights = flights.stream()
                               .parallel()
@@ -80,6 +99,11 @@ public class FlightFilterBuilder {
         return this;
     }
 
+    /**
+     * A method for getting sorted {@link List} with {@link Flight}
+     *
+     * @return List<Flight>
+     */
     public List<Flight> build() {
         return flights;
     }

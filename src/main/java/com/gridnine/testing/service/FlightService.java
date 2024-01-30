@@ -5,6 +5,9 @@ import com.gridnine.testing.model.Flights;
 
 import java.util.List;
 
+/**
+ * Service for processing requests
+ */
 public interface FlightService {
     List<Flight> beforeNow(Flights flights);
 

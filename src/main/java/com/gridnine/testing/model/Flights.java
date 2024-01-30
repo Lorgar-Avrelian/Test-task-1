@@ -5,6 +5,9 @@ import com.gridnine.testing.model.filter_builder.FlightFilterBuilder;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Bean that represents {@link List} of {@link Flight}
+ */
 public class Flights {
     List<Flight> flights;
 
@@ -12,6 +15,11 @@ public class Flights {
         this.flights = flights;
     }
 
+    /**
+     * A method for getting {@link List} of {@link Flight}
+     *
+     * @return List<Flight>
+     */
     public List<Flight> getFlights() {
         return flights;
     }
@@ -36,6 +44,11 @@ public class Flights {
                 '}';
     }
 
+    /**
+     * A method for the beginning of filter {@link Flights}
+     *
+     * @return new {@link FlightFilterBuilder}
+     */
     public FlightFilterBuilder filter() {
         return new FlightFilterBuilder(flights);
     }
