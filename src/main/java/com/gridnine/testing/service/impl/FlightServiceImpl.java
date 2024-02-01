@@ -22,7 +22,7 @@ public class FlightServiceImpl implements FlightService {
     /**
      * A method for getting {@link List} with {@link Flight} that departs in the past
      *
-     * @return List<Flight>
+     * @return {@link FlightService}
      */
     @Override
     public FlightService departureBeforeNow() {
@@ -51,7 +51,7 @@ public class FlightServiceImpl implements FlightService {
     /**
      * A method for getting {@link List} with {@link Flight} that departs before it arrives
      *
-     * @return List<Flight>
+     * @return {@link FlightService}
      */
     @Override
     public FlightService arrivalDateBeforeDepartureDate() {
@@ -79,7 +79,7 @@ public class FlightServiceImpl implements FlightService {
     /**
      * A method for getting {@link List} with {@link Flight} with more than two hours ground time
      *
-     * @return List<Flight>
+     * @return {@link FlightService}
      */
     @Override
     public FlightService parkingMoreThen2Hours() {
@@ -104,7 +104,11 @@ public class FlightServiceImpl implements FlightService {
                               .collect(Collectors.toList());
         return this;
     }
-
+    /**
+     * A method for getting filtered {@link List} with {@link Flight}
+     *
+     * @return List<Flight>
+     */
     @Override
     public List<Flight> filter() {
         return flights;
