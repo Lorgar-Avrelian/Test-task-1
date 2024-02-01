@@ -14,16 +14,55 @@ public class Main {
         System.out.println(FlightBuilder.createFlights());
         System.out.println("========================================================================================");
         // Task solution
+        // Filtering flights departing in the past
+        departureBeforeNow();
+        // Filtering flights that departs before it arrives
+        arrivalDateBeforeDepartureDate();
+        // Filtering flights with more than two hours ground time
+        parkingMoreThen2Hours();
+        // Filtering flights departing in the past, that departs before it arrives and with more than two hours ground time
+        departureBeforeNowAndArrivalDateBeforeDepartureDateAndParkingMoreThen2Hours();
+    }
+
+    private static void departureBeforeNow() {
         Flights flights = new Flights(FlightBuilder.createFlights());
-        FlightService flightService = new FlightServiceImpl();
-        // Receiving a flight departing in the past
-        List<Flight> flightList = flightService.beforeNow(flights);
-        System.out.println(flightList);
-        // Receiving a flight that departs before it arrives
-        flightList = flightService.arrivalDateBeforeDepartureDate(flights);
-        System.out.println(flightList);
-        // Receiving a flight with more than two hours ground time
-        flightList = flightService.parkingMoreThen2Hours(flights);
-        System.out.println(flightList);
+        FlightService flightService = new FlightServiceImpl(flights.getFlights());
+        List<Flight> sortedFlights = flightService
+                .departureBeforeNow()
+                .filter();
+        System.out.println(sortedFlights);
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    }
+
+    private static void arrivalDateBeforeDepartureDate() {
+        Flights flights = new Flights(FlightBuilder.createFlights());
+        FlightService flightService = new FlightServiceImpl(flights.getFlights());
+        List<Flight> sortedFlights = flightService
+                .arrivalDateBeforeDepartureDate()
+                .filter();
+        System.out.println(sortedFlights);
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    }
+
+    private static void parkingMoreThen2Hours() {
+        Flights flights = new Flights(FlightBuilder.createFlights());
+        FlightService flightService = new FlightServiceImpl(flights.getFlights());
+        List<Flight> sortedFlights = flightService
+                .parkingMoreThen2Hours()
+                .filter();
+        System.out.println(sortedFlights);
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    }
+
+    private static void departureBeforeNowAndArrivalDateBeforeDepartureDateAndParkingMoreThen2Hours() {
+        Flights flights = new Flights(FlightBuilder.createFlights());
+        FlightService flightService = new FlightServiceImpl(flights.getFlights());
+        List<Flight> sortedFlights = flightService
+                .departureBeforeNow()
+                .arrivalDateBeforeDepartureDate()
+                .parkingMoreThen2Hours()
+                .filter();
+        System.out.println(sortedFlights);
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     }
 }

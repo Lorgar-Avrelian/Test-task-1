@@ -1,7 +1,6 @@
 package com.gridnine.testing.service;
 
 import com.gridnine.testing.model.Flight;
-import com.gridnine.testing.model.Flights;
 
 import java.util.List;
 
@@ -9,9 +8,11 @@ import java.util.List;
  * Service for processing requests
  */
 public interface FlightService {
-    List<Flight> beforeNow(Flights flights);
+    FlightService departureBeforeNow();
 
-    List<Flight> arrivalDateBeforeDepartureDate(Flights flights);
+    FlightService arrivalDateBeforeDepartureDate();
 
-    List<Flight> parkingMoreThen2Hours(Flights flights);
+    FlightService parkingMoreThen2Hours();
+
+    List<Flight> filter();
 }
