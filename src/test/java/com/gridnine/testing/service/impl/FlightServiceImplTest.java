@@ -1,5 +1,7 @@
 package com.gridnine.testing.service.impl;
 
+import com.gridnine.testing.filter_factory.FlightFilterFactory;
+import com.gridnine.testing.filters.FlightFilterFactoryImpl;
 import com.gridnine.testing.model.Flight;
 import com.gridnine.testing.model.Flights;
 import com.gridnine.testing.model.Segment;
@@ -18,12 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(MockitoExtension.class)
 class FlightServiceImplTest {
     static Flights flights;
-    FlightServiceImpl flightService;
+    FlightFilterFactory filterFactory;
 
     @BeforeEach
     void beforeEach() {
         flights = new Flights(FlightBuilder.createFlights());
-        flightService = new FlightServiceImpl(flights.getFlights());
+        filterFactory = new FlightFilterFactoryImpl();
     }
 
     @Test
@@ -35,7 +37,7 @@ class FlightServiceImplTest {
                 new Flight(List.of(new Segment(LocalDateTime.now().plusDays(3), LocalDateTime.now().plusDays(3).minusHours(6)))),
                 new Flight(List.of(new Segment(LocalDateTime.now().plusDays(3), LocalDateTime.now().plusDays(3).plusHours(2)), new Segment(LocalDateTime.now().plusDays(3).plusHours(5), LocalDateTime.now().plusDays(3).plusHours(6)))),
                 new Flight(List.of(new Segment(LocalDateTime.now().plusDays(3), LocalDateTime.now().plusDays(3).plusHours(2)), new Segment(LocalDateTime.now().plusDays(3).plusHours(3), LocalDateTime.now().plusDays(3).plusHours(4)), new Segment(LocalDateTime.now().plusDays(3).plusHours(6), LocalDateTime.now().plusDays(3).plusHours(7)))));
-        List<Flight> actualList = flightService.departureBeforeNow().filter();
+        List<Flight> actualList = filterFactory.getDepartureBeforeNowFilter().filterDepartureBeforeNow(flights.getFlights());
         assertEquals(actualList.toString(), expextedList.toString());
     }
 
@@ -48,7 +50,7 @@ class FlightServiceImplTest {
                 new Flight(List.of(new Segment(LocalDateTime.now().plusDays(3).minusDays(6), LocalDateTime.now().plusDays(3)))),
                 new Flight(List.of(new Segment(LocalDateTime.now().plusDays(3), LocalDateTime.now().plusDays(3).plusHours(2)), new Segment(LocalDateTime.now().plusDays(3).plusHours(5), LocalDateTime.now().plusDays(3).plusHours(6)))),
                 new Flight(List.of(new Segment(LocalDateTime.now().plusDays(3), LocalDateTime.now().plusDays(3).plusHours(2)), new Segment(LocalDateTime.now().plusDays(3).plusHours(3), LocalDateTime.now().plusDays(3).plusHours(4)), new Segment(LocalDateTime.now().plusDays(3).plusHours(6), LocalDateTime.now().plusDays(3).plusHours(7)))));
-        List<Flight> actualList = flightService.arrivalDateBeforeDepartureDate().filter();
+        List<Flight> actualList = filterFactory.getArrivalDateBeforeDepartureDateFilter().filterArrivalDateBeforeDepartureDate(flights.getFlights());
         assertEquals(actualList.toString(), expextedList.toString());
     }
 
@@ -60,7 +62,7 @@ class FlightServiceImplTest {
                 new Flight(List.of(new Segment(LocalDateTime.now().plusDays(3), LocalDateTime.now().plusDays(3).plusHours(2)), new Segment(LocalDateTime.now().plusDays(3).plusHours(3), LocalDateTime.now().plusDays(3).plusHours(5)))),
                 new Flight(List.of(new Segment(LocalDateTime.now().plusDays(3).minusDays(6), LocalDateTime.now().plusDays(3)))),
                 new Flight(List.of(new Segment(LocalDateTime.now().plusDays(3), LocalDateTime.now().plusDays(3).minusHours(6)))));
-        List<Flight> actualList = flightService.parkingMoreThen2Hours().filter();
+        List<Flight> actualList = filterFactory.getParkingMoreThen2HoursFilter().filterParkingMoreThen2Hours(flights.getFlights());
         assertEquals(actualList.toString(), expextedList.toString());
     }
 }
